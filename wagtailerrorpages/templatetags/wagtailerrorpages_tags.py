@@ -13,10 +13,10 @@ register = template.Library()
 
 
 @register.inclusion_tag('wagtailerrorpages/fragments/404message.html', takes_context=True)
-def message404(context):
+def message404(context, max_results=5):
     url_path = context['request'].path_info
     search_query = unquote_plus(url_path).replace('/', ' ')
-    search_results = Page.objects.live().public().search(search_query)
+    search_results = Page.objects.live().public().search(search_query)[0:max_results]
     search = True
 
     try:
