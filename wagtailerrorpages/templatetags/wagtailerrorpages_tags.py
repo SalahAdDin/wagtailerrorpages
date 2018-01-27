@@ -1,7 +1,13 @@
 from django import template
-from django.core.urlresolvers import reverse
+try:
+    from django.urls import reverse
+except ImportError:  # Django<2.0
+    from django.core.urlresolvers import reverse
 
-from wagtail.wagtailcore.models import Page
+try:
+    from wagtail.core.models import Page
+except ImportError:  # Django<2.0
+    from wagtail.wagtailcore.models import Page
 try:
     # Python 3
     from urllib.parse import unquote_plus
